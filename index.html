@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="assets/css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="assets/javascript/javascript.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron" id="startGame">
+        <h1 class="display 1" id="start-header">Muppets Quiz!</h1>
+        <p id="instructions">This is a timed quiz about The Muppets and Jim Henson! There are 10 questions and you have 15 seconds to answer each question. If you do not answer a question in time, it will default to incorrect. Good Luck!</p>
+        <div class="container" id="option-list"></div>
+        <button type="button" class="btn btn-success" id="start-button">Start Game!</button>
+      </div>
+      <div class="jumbotron" id="questions">
+        <div id="during-time">
+        <h1 class="display 1" id="q-header"></h1>
+        <div class="container" id="option-list"></div>
+        <div id="show-number"></div>
+        <div id="answer-count"></div>
+        </div>
+        <div class="container" id="show-answer">
+            <h2 class="display 1" id="right-answer"></h2>
+            <div id="wrong-img"></div>
+        </div>
+        <div class="container" id="correct-div">
+                <h2 class="display 1" id="correct-header">You got it!</h2>
+                <div id="right-img"></div>
+            </div>
+      </div>
+    </div>
+  </body>
+</html>
