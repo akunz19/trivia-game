@@ -106,65 +106,145 @@ var number = 15;
     for (var i = 0; i < qArray[questionCount].option.length; i++) {
       var optionVal = qArray[questionCount].option[i];
       var optionItem = $(
-        '<button id="option-button" value="' +
+        '<button class="btn btn-primary option-button" value="' +
           optionVal +
           '">' +
           optionVal +
-          "</input>"
+          "</button>"
       );
       console.log(optionItem);
       $("#option-list").append(optionItem);
     }
   };
 
-  $(document).on("click","#option-button", function() { //choose answer on click
+  $(document).on("click",".option-button", function() { //choose answer on click
     if($(this).val()===qArray[questionCount].answer){
-      console.log("good job!");
-      winCount++;
-      rightArray.push(qArray[questionCount]);
+      console.log(questionCount)
+      if(questionCount < 9){
+        displayifCorrect();
+        console.log("inside correct if < 10: ", questionCount);
     } else{
-      console.log("boooo");
-      loseCount++;
-      wrongArray.push(qArray[questionCount]);
-      beforeTime();
+      clearCount();
+      qArray[questionCount].isCorrect = true;
+      $("#correct-div").show();
+      $("#correct-header").html("YAAAYYYYY!!! You got it!");
+      setTimeout(endGame, 2000);
+      setTimeout(function() { 
+      $("#correct-div").hide() 
+    }, 2000);
     }
-    //if($(this).attr(""))
+    } else{
+      if(questionCount < 9){
+      displayifWrong();  
+      }
+     else{
+      clearCount();
+      $("#show-answer").show();
+      $("#right-answer").html("Time is up! The correct answer is: " + qArray[questionCount].answer + ". Better luck next time!");
+      setTimeout(endGame, 2000);
+      setTimeout(function() { 
+      $("#show-answer").hide() 
+    }, 2000);
+    }
+    }
 });
 
 
   function decrement() { //decrements countdown
     number--;
-    if(questionCount < 10){ //logic to run the quiz before you reach the end of qArray
-    if(number===-1){ //if unanswered
+    if(number===0){ //if unanswered
+      if(questionCount === 9){
+        clearCount();
+        $("#show-answer").show();
+        $("#right-answer").html("Time is up! The correct answer is: " + qArray[questionCount].answer + ". Better luck next time!");
+        setTimeout(endGame, 2000);
+        setTimeout(function() { 
+        $("#show-answer").hide() 
+      }, 2000);
+      } else{
       clearCount(); //clears countDown interval
       $("#show-answer").show();
       //displays correct answer
-      $("#right-answer").html("Time is up! The correct answer is: " + qArray[questionCount].answer + ". 5 seconds until next question!");
+      $("#right-answer").html("Time is up! The correct answer is: " + qArray[questionCount].answer + ". 3 seconds until next question!");
       setTimeout(function() { 
         $("#show-answer").hide() 
-      }, 5000);
+      }, 3000);
       //restarts game
-      setTimeout(runCount, 5000);     
+      setTimeout(runCount, 3000);     
       console.log(qArray[questionCount]);
       wrongArray.push(qArray[questionCount]);
       console.log(wrongArray);
       loseCount++; //updates wrong answer count
-      questionCount++;
+      questionCount++; //updates qArray to next index
+      number = 15;
+      }
     }
-  } else{
-    alert("no more questions");
-  }
     $("#show-number").html("<h2>Time: " + number + "</h2>");
-
+    
   };
 
-function beforeTime (){ //function for answered before time up
-  questionCount++;
-  clearCount();
-  runCount();
+function endGame (){ //function tp end game
+  //clearCount();
+  $("#finish-div").show();
+  if(winCount >= 7){
+    $("#finish-header").html("You got "+ winCount+" out of 10 right! Sounds like you're a super Muppet nerd, weirdo.");
+  }
+  if(winCount <= 6 && winCount > 4 ){
+    $("#finish-header").html("You got "+ winCount+" out of 10 right! Looks like you've at least seen The Muppet Movie, good for you.");
+  }
+  if(winCount < 5){
+    $("#finish-header").html("You got "+ winCount+" out of 10 right... Do you know who Kermit the Frog is? Are you Lost?");
+  }
+ displaySolutions();
 };
 
+function displaySolutions(){
+  console.log("solutions displayed")
+    for(var i = 0; i < qArray.length; i++){
+      var solCont = $("<ul class= 'list-group sol-cont' id= 'solution: "+ i + "'>");
+      $("#solutions").append(solCont);
+      $(solCont).prepend($("<li class='list-group-item'>Question: " + qArray[i].question + "</li>"));
+      $(solCont).append($("<li class='list-group-item'>Answer: " + qArray[i].answer + "</li>"));
+      $(solCont).append($("<li class='list-group-item'>Answered correctly: " + qArray[i].isCorrect + "</li>"));
+    }
+  
+}
+
+function displayifCorrect (){
+      $("#correct-div").show()
+      $("#correct-header").html("YAAAYYYYY!!! You got it! Next question in 3 seconds");
+      setTimeout(function() { 
+        $("#correct-div").hide() 
+      }, 3000);
+      //restarts game
+      setTimeout(runCount, 3000);
+      qArray[questionCount].isCorrect = true;
+      winCount++;
+      questionCount++;
+      clearCount();
+      number = 15;
+      $("#show-number").html("<h2>Time: " + number + "</h2>");
+}
+
+function displayifWrong (){
+  $("#show-answer").show() 
+  $("#right-answer").html("Nice try! The correct answer is: " + qArray[questionCount].answer + ". 3 seconds until next question!");
+  setTimeout(function() { 
+    $("#show-answer").hide() 
+  }, 3000);
+  //restarts game
+  setTimeout(runCount, 3000);
+  loseCount++;
+  questionCount++;
+  clearCount();
+  number = 15;
+  $("#show-number").html("<h2>Time: " + number + "</h2>");
+
+}
+
   function runCount(){
+    console.log("runcount is executing")
+    console.log(questionCount)
     $("#during-time").show(); //show question
     countDown = setInterval(decrement, 1000); //timer
     genQuestions(); //generate questions
@@ -172,16 +252,27 @@ function beforeTime (){ //function for answered before time up
   };
 
   function clearCount() { //clear countDown interval
+    clearInterval(countDown);
     $("#during-time").hide(); //hide question
     $("#q-header").empty(); //reset header
     $("#option-list").empty(); //reset questions
-    clearInterval(countDown);
     console.log("i did it!");
   };
 $("#start-button").on("click", function (){ //starts the game
   $("#startGame").detach();
-  $("#questions").show();
+  number = 15;
+  $("#show-number").html("<h2>Time: " + number + "</h2>");
   runCount();
-
+  $("#questions").show();
+});
+$("#start-again").on("click", function (){ //restarts the game
+  $("#finish-div").detach();
+  number = 15;
+  questionCount = 0;
+  winCount = 0;
+  loseCount = 0;
+  $("#show-number").html("<h2>Time: " + number + "</h2>");
+  runCount();
+  $("#questions").show();
 });
 });

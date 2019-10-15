@@ -1,3 +1,12 @@
+body{
+    background-image: url("../images/506306_1920_1440.jpg");
+    background-size: cover;
+    position: relative;
+    background-repeat: no-repeat;
+}
+#content-wrap{
+    margin-top: 50px;
+}
 #questions{
     display: none;
 }
@@ -6,4 +15,11 @@
 }
 #correct-div{
     display: none;
+}
+#finish-div{
+    display: none;
+}
+
+.option-button{
+    margin: 4px;
 }

@@ -10,34 +10,51 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="assets/css/style.css"/>
+    <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/javascript/javascript.js"></script>
     <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <div class="jumbotron" id="startGame">
+    <div class="container" id="content-wrap">
+      <div class="jumbotron" style="background-color: rgb(255,255,255,0.4)!important;" id="startGame">
         <h1 class="display 1" id="start-header">Muppets Quiz!</h1>
-        <p id="instructions">This is a timed quiz about The Muppets and Jim Henson! There are 10 questions and you have 15 seconds to answer each question. If you do not answer a question in time, it will default to incorrect. Good Luck!</p>
+        <p style="font-size: 18px; font-weight: bold;" id="instructions">
+          This is a timed quiz about The Muppets and Jim Henson! There are 10
+          questions and you have 15 seconds to answer each question. If you do
+          not answer a question in time, it will default to incorrect. Good
+          Luck!
+        </p>
         <div class="container" id="option-list"></div>
-        <button type="button" class="btn btn-success" id="start-button">Start Game!</button>
+        <button type="button" class="btn btn-success" id="start-button">
+          Start Game!
+        </button>
       </div>
-      <div class="jumbotron" id="questions">
+      <div class="jumbotron" style="background-color: rgb(255,255,255,0.2)!important;" id="questions">
         <div id="during-time">
-        <h1 class="display 1" id="q-header"></h1>
-        <div class="container" id="option-list"></div>
-        <div id="show-number"></div>
-        <div id="answer-count"></div>
+          <h1 class="display 1" id="q-header"></h1>
+          <div class="container" id="option-list"></div>
+          <div id="show-number"></div>
+          <div id="answer-count"></div>
         </div>
         <div class="container" id="show-answer">
-            <h2 class="display 1" id="right-answer"></h2>
-            <div id="wrong-img"></div>
+          <h2 class="display 1" id="right-answer"></h2>
+          <div id="wrong-img"></div>
         </div>
         <div class="container" id="correct-div">
-                <h2 class="display 1" id="correct-header">You got it!</h2>
-                <div id="right-img"></div>
-            </div>
+          <h2 class="display 1" id="correct-header"></h2>
+          <div id="right-img"></div>
+        </div>
+
+        <div class="container" id="finish-div">
+          <h2 class="display 1" id="finish-header"></h2>
+          <div id="finish-img"></div>
+          <button type="button" class="btn btn-success" id="start-again">
+                Play Again!
+        </button>
+        <h2 class= "display 1 text-center">Solutions</h2>
+        <div class="container" id="solutions"></div>
+        </div>
       </div>
     </div>
   </body>
